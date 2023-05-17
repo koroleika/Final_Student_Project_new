@@ -1,0 +1,21 @@
+version: "3.3"
+services:
+  pghost:
+    image: postgres:13.2
+    restart: always 
+    volumes:
+      - /Final_Student_Project/data:/var/lib/postgresql/data:z
+    environment:
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5432:5432"
+  website:
+    depends_on:
+      - pghost
+    build: 
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - /Final_Student_Project/php_page/:/var/www/html:z
